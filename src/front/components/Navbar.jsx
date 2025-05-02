@@ -1,19 +1,16 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-export const Navbar = () => {
+export function Navbar() {
+    const navigate = useNavigate();
 
-	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
-			</div>
-		</nav>
-	);
-};
+    const handleLogout = async () => {
+        await fetch('http://localhost:3001/api/logout', { method: 'POST' });  // Asegúrate de que la URL sea correcta
+        navigate('/login');
+    };
+
+    return (
+        <nav>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
+        </nav>
+    );
+}
